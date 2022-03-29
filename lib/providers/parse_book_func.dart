@@ -4,7 +4,7 @@ import 'package:my_library/providers/book.dart';
 List<Book> parseBookJson(String jsonStr) {
   final jsonMap = json.decode(jsonStr);
   final jsonList = (jsonMap['items'] as List);
-  //For each element took from the jason file we see if is null because this
+  //For each element took from the json file we see if is null because this
   //can give an error in execution
   return jsonList
       .map((jsonBook) => Book(
@@ -23,7 +23,7 @@ List<Book> parseBookJson(String jsonStr) {
             thumbnailUrl:
                 (jsonBook['volumeInfo']['imageLinks']) == null
                     ? 'Not avaiable'
-                    : jsonBook['volumeInfo']['imageLinks']['smallThumbnail'],
+                    : jsonBook['volumeInfo']['imageLinks']['thumbnail'],
                     
           ))
       .toList();

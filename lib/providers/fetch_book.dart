@@ -2,26 +2,29 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:my_library/providers/book.dart';
 import 'package:my_library/providers/parse_book_func.dart';
+import 'package:my_library/show_book_list.dart';
 
-const url =
-    'https://www.googleapis.com/books/v1/volumes?q=harry+potter+inauthor:rowling';
+const url = 'https://www.googleapis.com/books/v1/volumes?q=Harry+Potter+intitle';
+//'https://www.googleapis.com/books/v1/volumes?q=harry+potter+inauthor:rowling';
 
-class MyBook1 extends StatelessWidget {
-  const MyBook1({Key? key}) : super(key: key);
+class FetchBook extends StatelessWidget {
+  const FetchBook({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70,
       body: FutureBuilder(
-          future: _fetchPotterBooks(),
+          future: _fetchBooks(),
           builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-            //print(snapshot.data.toString());
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
-                return ListView(
-                    children: snapshot.data!.map((b) => BookTile(b)).toList());
+                //print(snapshot.data!.cast<Book>());
+                //return ListView(
+                //children: snapshot.data!.map((b) => BookTile(b)).toList());
+                return ShowBookList(snapshot.data!.cast<Book>(), 'My List');
               }
             } else {
               return const Center(child: CircularProgressIndicator());
@@ -31,7 +34,7 @@ class MyBook1 extends StatelessWidget {
   }
 }
 
-Future<List<Book>> _fetchPotterBooks() async {
+Future<List<Book>> _fetchBooks() async {
   final res = await http.get(Uri.parse(url));
   if (res.statusCode == 200) {
     //fino qua abbiamo il body che ci da la risposta giusta
@@ -60,5 +63,3 @@ class BookTile extends StatelessWidget {
     );
   }
 }
-
-
