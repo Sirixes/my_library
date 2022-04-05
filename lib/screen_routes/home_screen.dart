@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:my_library/providers/fetch_book.dart';
+import 'package:my_library/widgets/custom_app_bar.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+//Probabilmente è inutile fare stafeul il widget però bona
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    //With MediaQuery we take the size of the device and it adapts to
+    //all screens
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 50.0),
+        child: CustomAppBar(),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: FetchBook(
+                url:
+                    'https://www.googleapis.com/books/v1/volumes?q=Harry+Potter+intitle',
+                titleRow: 'titleRow'),
+          ),
+          SliverToBoxAdapter(
+            child: FetchBook(
+                url:
+                    'https://www.googleapis.com/books/v1/volumes?q=ciao+intitle',
+                titleRow: 'titleRow1'),
+          )
+        ],
+      ),
+    );
+  }
+}

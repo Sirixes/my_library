@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_library/providers/book.dart';
 
+import '../global_variables.dart';
+
 //Class used to show the home page book list
 
 class ShowBookList extends StatelessWidget {
@@ -9,7 +11,6 @@ class ShowBookList extends StatelessWidget {
   List<Book> bookList;
 
   ShowBookList(this.bookList, this.listTitle, {Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +36,7 @@ class ShowBookList extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final Book book = bookList[index];
                       return InkWell(
-                        onTap: () => print(book.title),
+                        onTap: () => reading.add(book),
                         child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           height: 200.0,
