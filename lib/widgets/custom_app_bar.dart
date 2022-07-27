@@ -6,7 +6,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        color: Colors.yellow,
+        color: Colors.white,
         child: Center(
             child: InkWell(
             onTap: () => print('ciao'),

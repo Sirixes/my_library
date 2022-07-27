@@ -1,13 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:my_library/authentication/auth_screen.dart';
+import 'package:my_library/global_variables.dart';
 import 'package:my_library/screen_routes/home_screen.dart';
 import 'package:my_library/screen_routes/nav_screen.dart';
 
-void main() {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.removeAfter(inizialization);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await Firebase.initializeApp();
   runApp(const MyApp());
+}
+
+Future inizialization(BuildContext? context) async {
+  /**Legare Splash screen in modo che venga mostrato quando è finito il 
+   * caricamento della schermata principale */
+
+  //Per il momento dura 2 secondi e poi scompare
+  await Future.delayed(const Duration(seconds: 2));
 }
 
 class MyApp extends StatefulWidget {
@@ -23,8 +39,23 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: NavScreen(),
+    return MaterialApp(
+      //Quando trova un token nella cache oppure viene fatto login o registrazione
+      //accede alla pagina principale se invece il token scade fa logout, se userSnapshot ha dati vuol dire che c'è un
+      //token valido
+      home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.hasData) {
+              /* TODO
+                Fare parte logout
+                
+              */
+              print(name);
+              return NavScreen();
+            }
+            return AuthScreen();
+          }),
     );
   }
 }

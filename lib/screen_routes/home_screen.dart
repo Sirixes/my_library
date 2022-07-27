@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:my_library/providers/fetch_book.dart';
 import 'package:my_library/widgets/custom_app_bar.dart';
+import 'package:my_library/widgets/snack_bar_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 50.0),
         child: CustomAppBar(),
@@ -35,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 url:
                     'https://www.googleapis.com/books/v1/volumes?q=ciao+intitle',
                 titleRow: 'titleRow1'),
-          )
+          ),
         ],
       ),
     );

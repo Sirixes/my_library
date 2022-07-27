@@ -4,6 +4,7 @@ import 'package:my_library/providers/book.dart';
 import 'package:my_library/providers/parse_book_func.dart';
 import 'package:my_library/widgets/show_book_list.dart';
 
+//Class that is used to fetch the books from the server using the url
 class FetchBook extends StatelessWidget {
   String url;
   String titleRow;
@@ -26,6 +27,7 @@ class FetchBook extends StatelessWidget {
   }
 }
 
+//Function for the http request
 Future<List<Book>> _fetchBooks(String url) async {
   final res = await http.get(Uri.parse(url));
   if (res.statusCode == 200) {

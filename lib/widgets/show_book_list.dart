@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:my_library/providers/book.dart';
 
 import '../global_variables.dart';
+import '../screen_routes/book_details_page.dart';
 
-//Class used to show the home page book list
+//Class that contains widget used to show the home page book list
 
 class ShowBookList extends StatelessWidget {
   //Ttitle upon the lit like 'continue to watch'
   String listTitle;
+  //List of books to show
   List<Book> bookList;
 
   ShowBookList(this.bookList, this.listTitle, {Key? key}) : super(key: key);
@@ -36,7 +38,10 @@ class ShowBookList extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final Book book = bookList[index];
                       return InkWell(
-                        onTap: () => reading.add(book),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BookDetailsPage(book))),
                         child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           height: 200.0,

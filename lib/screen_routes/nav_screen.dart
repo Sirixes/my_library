@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_library/screen_routes/my_area.dart';
 import 'package:my_library/screen_routes/search_screen.dart';
+import 'package:my_library/widgets/snack_bar_page.dart';
 
 import 'home_screen.dart';
 
 class NavScreen extends StatefulWidget {
+  
   const NavScreen({Key? key}) : super(key: key);
 
   @override
@@ -46,4 +48,6 @@ class _NavScreenState extends State<NavScreen> {
       _currentIndex = index;
     });
   }
+
+  
 }
