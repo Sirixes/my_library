@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_library/providers/book.dart';
 
@@ -15,10 +18,34 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> addToList(
 
   if (list == "Read") {
     read.add(book);
+    if (FirebaseAuth.instance.currentUser != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update({
+        'read': read.map((e) => e.toJson()).toList(),
+      });
+    }
   } else if (list == "Reading") {
     reading.add(book);
+    if (FirebaseAuth.instance.currentUser != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update({
+        'reading': reading.map((e) => e.toJson()).toList(),
+      });
+    }
   } else if (list == "Would read") {
     wouldRead.add(book);
+    if (FirebaseAuth.instance.currentUser != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update({
+        'wouldRead': wouldRead.map((e) => e.toJson()).toList(),
+      });
+    }
   }
   Navigator.pop(context);
 

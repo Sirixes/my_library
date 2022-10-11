@@ -11,4 +11,14 @@ class Book {
       required this.publisher,
       required this.thumbnailUrl,
       required this.description});
+
+  Map toJson() {
+    return {
+      'title': title,
+      'author': author,
+      'publisher': publisher,
+      'thumbnailUrl': thumbnailUrl,
+      'description': description,
+    };
+  }
 }

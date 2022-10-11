@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_library/authentication/auth_form.dart';
 import 'package:my_library/global_variables.dart';
+import 'package:my_library/providers/book.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
         userCredential = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         name = username;
+        
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userCredential.user!.uid)
@@ -34,11 +36,10 @@ class _AuthScreenState extends State<AuthScreen> {
           'username': username,
           'email': email,
           'password': password,
-          /*
           'reading': [],
           'wouldRead': [],
           'read': [],
-          */
+          
         });
       }
     } on PlatformException catch (e) {

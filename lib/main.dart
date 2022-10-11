@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:my_library/authentication/auth_screen.dart';
 import 'package:my_library/global_variables.dart';
+import 'package:my_library/providers/load_my_data.dart';
 import 'package:my_library/screen_routes/home_screen.dart';
 import 'package:my_library/screen_routes/nav_screen.dart';
 
@@ -21,7 +22,8 @@ Future main() async {
 Future inizialization(BuildContext? context) async {
   /**Legare Splash screen in modo che venga mostrato quando è finito il 
    * caricamento della schermata principale */
-
+  
+  loadLists();
   //Per il momento dura 2 secondi e poi scompare
   await Future.delayed(const Duration(seconds: 2));
 }
