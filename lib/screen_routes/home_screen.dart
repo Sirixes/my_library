@@ -30,13 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: FetchBook(
                 url:
-                    'https://www.googleapis.com/books/v1/volumes?q=Harry+Potter+intitle',
+                    'https://www.googleapis.com/books/v1/volumes?q=Harry+Potter',
                 titleRow: 'titleRow'),
           ),
           SliverToBoxAdapter(
             child: FetchBook(
                 url:
-                    'https://www.googleapis.com/books/v1/volumes?q=ciao+intitle',
+                    'https://www.googleapis.com/books/v1/volumes?q=ciao',
                 titleRow: 'titleRow1'),
           ),
         ],

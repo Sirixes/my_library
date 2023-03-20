@@ -1,11 +1,22 @@
+import 'dart:async';
+
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:my_library/providers/search_engine.dart';
+import 'package:my_library/search/fetch_searched_book.dart';
 
-FloatingSearchBar searchBar(dynamic context){
-   final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+/**
+ * 
+ * 
+ * DA RIFARE COMPLETAMENTE SEGUENDO LA GUIDA SUL QUESTO SITO: https://resocoder.com/2021/01/23/search-bar-in-flutter-logic-material-ui/
+ * 
+ */
+FloatingSearchBar searchBar(dynamic context) {
+  final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+  FloatingSearchBarController controller = FloatingSearchBarController();
   return FloatingSearchBar(
-    
-    hint: 'Search for a book...',
+    controller: controller,
+    hint: 'Search a title...',
     scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
     transitionDuration: const Duration(milliseconds: 800),
     transitionCurve: Curves.easeInOut,
@@ -14,8 +25,10 @@ FloatingSearchBar searchBar(dynamic context){
     openAxisAlignment: 0.0,
     width: isPortrait ? 600 : 500,
     debounceDelay: const Duration(milliseconds: 500),
-    onQueryChanged: (query) {
-      // Call your model, bloc, controller here.
+    onSubmitted: (query) {
+      FetchSearchedBook(query);
+      controller.close;
+
     },
     // Specify a custom transition to be used for
     // animating between opened and closed stated.
@@ -48,5 +61,4 @@ FloatingSearchBar searchBar(dynamic context){
       );
     },
   );
-
 }
